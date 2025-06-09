@@ -1,0 +1,126 @@
+/* Background Effects System */
+:root {
+  /* Animation timings */
+  --bg-transition-duration: 0.3s;
+  --parallax-intensity: 0.05;
+  --hover-intensity: 0.1;
+  
+  /* Color variables */
+  --bg-gradient-1: rgba(255, 255, 255, 0.1);
+  --bg-gradient-2: rgba(255, 255, 255, 0.05);
+  --hover-color-1: rgba(147, 197, 253, 0.1);
+  --hover-color-2: rgba(191, 219, 254, 0.1);
+}
+
+/* Interactive background container */
+.interactive-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity var(--bg-transition-duration) ease-out;
+}
+
+.interactive-bg::before,
+.interactive-bg::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform var(--bg-transition-duration) ease-out;
+}
+
+.interactive-bg::before {
+  background: radial-gradient(
+    circle at center,
+    var(--bg-gradient-1) 0%,
+    transparent 70%
+  );
+  transform: translateZ(0);
+}
+
+.interactive-bg::after {
+  background: radial-gradient(
+    circle at center,
+    var(--bg-gradient-2) 0%,
+    transparent 50%
+  );
+  transform: translateZ(0);
+}
+
+/* Parallax effect classes */
+.parallax-layer-1 {
+  transform: translateZ(0);
+  transition: transform var(--bg-transition-duration) ease-out;
+}
+
+.parallax-layer-2 {
+  transform: translateZ(0);
+  transition: transform var(--bg-transition-duration) ease-out;
+}
+
+/* CTA hover effect */
+.cta-hover-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-hover-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    var(--hover-color-1) 0%,
+    var(--hover-color-2) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity var(--bg-transition-duration) ease-out;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.cta-hover-effect:hover::before {
+  opacity: 1;
+}
+
+/* Scroll-based opacity */
+.scroll-fade {
+  opacity: 0;
+  transition: opacity var(--bg-transition-duration) ease-out;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .interactive-bg {
+    opacity: 0.5 !important;
+  }
+  
+  .parallax-layer-1,
+  .parallax-layer-2 {
+    transform: none !important;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .interactive-bg,
+  .interactive-bg::before,
+  .interactive-bg::after,
+  .parallax-layer-1,
+  .parallax-layer-2,
+  .cta-hover-effect::before {
+    transition: none !important;
+    transform: none !important;
+  }
+} 

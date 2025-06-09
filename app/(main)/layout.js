@@ -1,0 +1,13 @@
+import React from 'react'
+import Sidebar from './dashboard/_components/Sidebar'
+
+const MainLayout = ({children}) => {
+  return (
+    <div className="container mx-auto my-32">
+    {children}
+     
+    </div>
+  )
+}
+
+export default MainLayout
