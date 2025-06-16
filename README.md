@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# AutoFin
+
+## Description
+AutoFin is a personal finance management application designed to help users track their income, expenses, and investments. It provides a comprehensive overview of financial health through an intuitive interface and powerful features.
+
+## Features
+- Securely connect bank accounts using Plaid.
+- Track transactions and categorize them automatically.
+- Set budgets and monitor spending.
+- Manage investments and track portfolio performance.
+- User authentication and authorization using Clerk.
+- Background task processing with Inngest.
+
+## Technologies Used
+- Next.js
+- React
+- Prisma
+- PostgreSQL
+- Plaid API
+- Clerk
+- Inngest
+- Tailwind CSS
+- Shadcn UI
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js (Latest LTS version recommended)
+- npm (This project uses npm, as indicated by `package-lock.json`)
 
+### Cloning the Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git # IMPORTANT: Replace with the actual repository URL
+cd YOUR_REPOSITORY # IMPORTANT: Update to your repository name
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installing Dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Setting up Environment Variables
+Create a `.env.local` file in the root of the project and add the following environment variables. Obtain the values from the respective service dashboards.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+# PostgreSQL Database (Adjust if using a different Prisma-supported database)
+DATABASE_URL="postgresql://user:password@host:port/database"
 
-## Learn More
+# Clerk Authentication
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="your_clerk_publishable_key"
+CLERK_SECRET_KEY="your_clerk_secret_key"
 
-To learn more about Next.js, take a look at the following resources:
+# Plaid API
+PLAID_CLIENT_ID="your_plaid_client_id"
+PLAID_SECRET="your_plaid_secret"
+# PLAID_ENV="sandbox" # Ensure this matches your Plaid project settings (e.g., "sandbox", "development")
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Inngest
+INNGEST_EVENT_KEY="your_inngest_event_key" # Or INNGEST_SIGNING_KEY, check Inngest documentation/setup
+# INNGEST_SIGNING_KEY="your_inngest_signing_key"
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Email (Resend)
+RESEND_API_KEY="your_resend_api_key"
 
-## Deploy on Vercel
+# AI (Google Gemini)
+GEMINI_API_KEY="your_gemini_api_key"
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Arcjet (Security)
+ARCJET_KEY="your_arcjet_key"
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Next.js
+NEXT_PUBLIC_APP_URL="http://localhost:3000" # Update if your local dev port is different or for deployed environments
+```
+*Note: The exact names for Plaid environment variables (`PLAID_SECRET`, `PLAID_CLIENT_ID`) and Inngest (`INNGEST_EVENT_KEY` or `INNGEST_SIGNING_KEY`) should be confirmed from their respective SDK integrations or project configurations if issues arise.*
+
+### Running Database Migrations
+This project uses Prisma. To set up your database schema, run:
+```bash
+npx prisma migrate dev
+```
+*This command will apply existing migrations and create the database if it doesn't exist. If you are making schema changes, you will use `npx prisma migrate dev --name your-migration-name` to create new migrations.*
+*The `postinstall` script in `package.json` runs `prisma generate` to generate the Prisma Client, which is also crucial.*
+
+You can also use Prisma Studio to view and manage your data during development:
+```bash
+npx prisma studio
+```
+
+### Starting the Development Server
+```bash
+npm run dev
+```
+The application should now be running on [http://localhost:3000](http://localhost:3000) (or the port specified by `--turbopack` if configured differently).
+
+## Usage
+*[Optional: Add a brief guide on how to use the application after it's running.]*
+
+## Contributing
+*[Optional: Add guidelines for contributing to the project, e.g., coding standards, pull request process.]*
+
+## License
+*[Optional: Specify the license for the project, e.g., MIT License.]*
