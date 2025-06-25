@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import HeroSection from "@/components/hero";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { featuresData, howItWorksData, statsData, testimonialsData } from "@/data/landing";
+import { AutoFinHero } from "../components/hero.jsx";
+import { Button } from "../components/ui/button";
+import { Card, CardContent } from "../components/ui/card";
+import { featuresData, howItWorksData, statsData, testimonialsData } from "../data/landing";
+import { LogoMarquee } from "../components/ui/logo-marquee";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
@@ -29,7 +30,7 @@ export default function Home() {
         {
           opacity: 1,
           y: 0,
-          duration: 1,
+          duration: 0.6,
           scrollTrigger: {
             trigger: section,
             start: "top 80%",
@@ -51,8 +52,8 @@ export default function Home() {
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
-          stagger: 0.1,
+          duration: 0.5,
+          stagger: 0.08,
           scrollTrigger: {
             trigger: cards[0],
             start: "top 80%",
@@ -70,8 +71,8 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="mt-40">
-      <HeroSection />
+    <div className="mt-4">
+      <AutoFinHero />
 
       {/* Stats Section */}
       <section ref={el => sectionRefs.current[0] = el} className="py-20 bg-gray-900 text-white">
@@ -90,8 +91,20 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Partner Logos Section */}
+      <section ref={el => sectionRefs.current[1] = el} className="py-16 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-semibold text-center mb-12 text-gray-700 dark:text-gray-300">
+            Powered by Industry Leaders
+          </h2>
+          <div className="max-w-6xl mx-auto">
+            <LogoMarquee />
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
-      <section ref={el => sectionRefs.current[1] = el} id="features" className="py-20 bg-gradient-to-b from-white to-gray-50">
+      <section ref={el => sectionRefs.current[2] = el} id="features" className="py-20 bg-gradient-to-b from-white to-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-4">
             Everything you need to manage your finances
@@ -102,8 +115,8 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuresData.map((feature, index) => (
               <Card key={index} ref={el => {
-                if (!cardRefs.current[1]) cardRefs.current[1] = [];
-                cardRefs.current[1][index] = el;
+                if (!cardRefs.current[2]) cardRefs.current[2] = [];
+                cardRefs.current[2][index] = el;
               }} className="group relative overflow-hidden p-6 hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-blue-500">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <CardContent className="relative space-y-4 pt-4">
@@ -124,14 +137,14 @@ export default function Home() {
       </section>
 
       {/* How It Works Section */}
-      <section ref={el => sectionRefs.current[2] = el} className="py-20 bg-gray-50">
+      <section ref={el => sectionRefs.current[3] = el} className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-16">How It Works</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {howItWorksData.map((step, index) => (
               <Card key={index} ref={el => {
-                if (!cardRefs.current[2]) cardRefs.current[2] = [];
-                cardRefs.current[2][index] = el;
+                if (!cardRefs.current[3]) cardRefs.current[3] = [];
+                cardRefs.current[3][index] = el;
               }} className="p-6 shadow hover:shadow-lg transition-shadow">
                 <CardContent className="text-center space-y-4">
                   <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
@@ -147,7 +160,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section ref={el => sectionRefs.current[3] = el} id="testimonials" className="py-20 bg-gradient-to-b from-gray-50 to-white">
+      <section ref={el => sectionRefs.current[4] = el} id="testimonials" className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-4">
             What Our Users Say
@@ -158,8 +171,8 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonialsData.map((testimonial, index) => (
               <Card key={index} ref={el => {
-                if (!cardRefs.current[3]) cardRefs.current[3] = [];
-                cardRefs.current[3][index] = el;
+                if (!cardRefs.current[4]) cardRefs.current[4] = [];
+                cardRefs.current[4][index] = el;
               }} className="group relative overflow-hidden p-6 hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-blue-500">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <CardContent className="relative pt-4">
@@ -198,7 +211,7 @@ export default function Home() {
       </section>
 
       {/* Call to Action */}
-      <section ref={el => sectionRefs.current[4] = el} className="py-20 bg-blue-600 text-white">
+      <section ref={el => sectionRefs.current[5] = el} className="py-20 bg-blue-600 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">
             Ready to Take Control of Your Finances?
