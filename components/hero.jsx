@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Button } from "../components/ui/button1.jsx";
 import Link from "next/link";
 import { InteractiveHoverButton } from "./magicui/interactive-hover-button";
-import { useState, useEffect } from 'react';
 import { Bot, Shield, TrendingUp, Users, Sparkles, UserCheck, ChevronRight, Star, Zap } from 'lucide-react';
 
 export function AutoFinHero() {
