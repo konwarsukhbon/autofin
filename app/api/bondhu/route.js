@@ -1,29 +1,15 @@
 // /app/api/bondhu/route.js
 import { GoogleGenerativeAI } from '@google/generative-ai';
-// import { createClient } from '@supabase/supabase-js';
-// import { auth } from '@clerk/nextjs';
+import { createClient } from '@supabase/supabase-js';
+import { auth } from '@clerk/nextjs';
 
-// Temporarily disabled for deployment
-// const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-// const supabase = createClient(
-//   process.env.NEXT_PUBLIC_SUPABASE_URL,
-//   process.env.SUPABASE_SERVICE_ROLE_KEY
-// );
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
 export async function POST(req) {
-  // Temporarily disabled - return maintenance message
-  return new Response(JSON.stringify({
-    message: "Bondhu API is temporarily disabled for deployment. Please configure environment variables to enable this feature.",
-    status: "maintenance"
-  }), {
-    status: 503,
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  });
-
-  // Original code commented out below
-  /*
   const { userId } = auth();
   if (!userId) return new Response('Unauthorized', { status: 401 });
 
@@ -96,5 +82,4 @@ Respond in a friendly, helpful tone. Provide alerts if budgets are crossed and g
       'Connection': 'keep-alive'
     }
   });
-  */
 }

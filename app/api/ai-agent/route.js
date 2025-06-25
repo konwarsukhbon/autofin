@@ -2,8 +2,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { db } from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 
-// Temporarily disabled for deployment
-// const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 // Helper function to categorize spending
 const categorizeSpending = (transactions) => {
@@ -59,14 +58,6 @@ const calculateSavingsRate = (income, expenses) => {
 };
 
 export async function POST(req) {
-  // Temporarily disabled - return maintenance message
-  return NextResponse.json({
-    message: "AI Agent API is temporarily disabled for deployment. Please configure GEMINI_API_KEY environment variable to enable this feature.",
-    status: "maintenance"
-  }, { status: 503 });
-
-  // Original code commented out below
-  /*
   if (!process.env.GEMINI_API_KEY) {
     return NextResponse.json(
       { error: 'AI service is not configured' },
@@ -227,5 +218,4 @@ If this is their first interaction, warmly welcome them and offer to help with t
       { status: 500 }
     );
   }
-  */
 } 
