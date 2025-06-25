@@ -10,6 +10,14 @@
 !.yarn/releases
 !.yarn/versions
 
+# npm cache and integrity files
+.npm
+.npmrc.local
+.npmrc.development.local
+.npmrc.test.local
+.npmrc.production.local
+package-lock.json.backup
+
 # testing
 /coverage
 
@@ -31,7 +39,7 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
-.env
+.env*
 
 # vercel
 .vercel
