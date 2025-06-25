@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarIcon, Loader2 } from "lucide-react";
+import { CalendarIcon, Loader2, Receipt } from "lucide-react";
 import { format } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
 import useFetch from "@/hooks/use-fetch";
@@ -29,9 +29,8 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { CreateAccountDrawer } from "../../../../components/create-account-drawer";
 import { cn } from "@/lib/utils";
-import { createTransaction, updateTransaction } from "@/actions/transaction";
+import { createTransaction, updateTransaction, scanReceipt } from "@/actions/transaction";
 import { transactionSchema } from "@/app/lib/schema";
-import { ReceiptScanner } from "./recipt-scanner";
 
 export function AddTransactionForm({
   accounts,
@@ -83,6 +82,8 @@ export function AddTransactionForm({
     data: transactionResult,
   } = useFetch(editMode ? updateTransaction : createTransaction);
 
+  const fileInputRef = useRef(null);
+
   const onSubmit = (data) => {
     const formData = {
       ...data,
@@ -133,7 +134,47 @@ export function AddTransactionForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/* Receipt Scanner - Only show in create mode */}
-      {!editMode && <ReceiptScanner onScanComplete={handleScanComplete} />}
+      {!editMode && (
+        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 bg-blue-50 rounded-xl">
+              <Receipt className="h-5 w-5 text-blue-600" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900">Quick Scan</h3>
+              <p className="text-sm text-slate-600">Scan receipt to auto-fill details</p>
+            </div>
+          </div>
+          <input
+            type="file"
+            ref={fileInputRef}
+            className="hidden"
+            accept="image/*"
+            capture="environment"
+            onChange={async (e) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                try {
+                  const scannedData = await scanReceipt(file);
+                  handleScanComplete(scannedData);
+                } catch (err) {
+                  toast.error("Failed to scan receipt");
+                }
+              }
+            }}
+          />
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            className="w-full p-4 border-2 border-dashed border-slate-300 rounded-xl hover:border-blue-400 hover:bg-blue-50 transition-colors group"
+          >
+            <Receipt className="h-8 w-8 text-slate-400 group-hover:text-blue-500 mx-auto mb-2" />
+            <p className="text-sm font-medium text-slate-600 group-hover:text-blue-600">
+              Tap to scan receipt
+            </p>
+          </button>
+        </div>
+      )}
 
       {/* Type */}
       <div className="space-y-2">
