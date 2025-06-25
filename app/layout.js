@@ -1,10 +1,12 @@
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import "./background-effects.css";
-import Header from "@/components/header";
+import Header from "../components/header.jsx";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
 import Script from "next/script";
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,6 +25,8 @@ export default function RootLayout({ children }) {
           <Toaster richColors />
           <Script src="/cursor-particles.js" strategy="afterInteractive" />
           <Script src="/background-effects.js" strategy="afterInteractive" />
+          <Analytics />
+          <SpeedInsights />
           <footer className="bg-gray-900 py-8 text-gray-400">
             <div className="container mx-auto px-4 flex flex-col items-center text-center">
               <p className="text-sm md:text-base">&copy; {new Date().getFullYear()} Praduniya by Pran Konwar. All rights reserved.</p>
