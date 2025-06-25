@@ -198,23 +198,42 @@ If this is their first interaction, warmly welcome them and offer to help with t
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     
-    const result = await model.generateContent(systemPrompt + "\n\nUser: " + userInput);
-    const response = await result.response;
-    const text = response.text();
+    const result = await model.generateContent({
+      contents: [{ role: "user", parts: [{ text: systemPrompt }] }],
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 500,
+      },
+    });
 
-    return NextResponse.json({
-      response: text,
-      spendingBreakdown,
-      unusualSpending,
-      savingsData,
-      budgetUsage,
-      isOnTrack
+    const aiReply = result.response.text();
+
+    // Store conversation for future context (optional)
+    await db.conversation.create({
+      data: {
+        userId,
+        userMessage: userInput,
+        aiResponse: aiReply,
+        timestamp: new Date(),
+      }
+    }).catch(console.error); // Don't break if conversation storage fails
+
+    return NextResponse.json({ 
+      reply: aiReply,
+      insights: {
+        spendingBreakdown,
+        budgetUsage,
+        savingsRate: savingsData.savingsRate,
+        isOnTrack,
+        unusualSpending: unusualSpending.isUnusual,
+        budget: budget ? budget.toFixed(2) : 'N/A'
+      }
     });
 
   } catch (error) {
     console.error('AI Agent Error:', error);
     return NextResponse.json(
-      { error: 'Failed to process request' },
+      { error: 'I apologize, but I\'m experiencing some technical difficulties. Please try again in a moment.' },
       { status: 500 }
     );
   }

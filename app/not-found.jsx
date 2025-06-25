@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import { Button } from "../components/ui/button.jsx";
 import styles from "./not-found.module.css";
 import { useEffect, useState } from "react";
 

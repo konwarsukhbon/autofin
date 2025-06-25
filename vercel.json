@@ -2,12 +2,6 @@
   "buildCommand": "npm run build",
   "installCommand": "npm ci --legacy-peer-deps",
   "framework": "nextjs",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/next"
-    }
-  ],
   "env": {
     "NPM_CONFIG_FORCE": "true",
     "NPM_CONFIG_AUDIT": "false",

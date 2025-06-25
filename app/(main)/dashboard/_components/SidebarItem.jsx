@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Button } from "../../../../components/ui/button1.jsx"
 
 const SidebarItem = ({ icon: Icon, name, active, badge, collapsed, onClick }) => {
   return (

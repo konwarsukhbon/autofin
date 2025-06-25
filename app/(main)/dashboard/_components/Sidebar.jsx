@@ -4,8 +4,14 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Home, Plus, ChevronLeft, ChevronRight,
-  Sun, Moon, Search
+  Sun, Moon, Search, Bot, Users
 } from 'lucide-react'
+import { Button } from "../../../../components/ui/button1.jsx";
+import { Input } from "../../../../components/ui/input.jsx";
+import { Separator } from "../../../../components/ui/separator.jsx";
+import { Sheet, SheetContent, SheetTrigger } from "../../../../components/ui/sheet.jsx";
+import { Skeleton } from "../../../../components/ui/skeleton.jsx";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../../../../components/ui/tooltip.jsx";
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false)
@@ -55,7 +61,9 @@ const Sidebar = () => {
 
   const navItems = [
     { name: 'Dashboard', icon: Home, href: '/' },
-    { name: 'Add Transaction', icon: Plus, href: '/transaction/create' }
+    { name: 'Add Transaction', icon: Plus, href: '/transaction/create' },
+    { name: 'Smart Assistant', icon: Bot, href: '/bondhu' },
+    { name: 'Splitwise', icon: Users, href: '/splitwise' }
   ]
 
   return (

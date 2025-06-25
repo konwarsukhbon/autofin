@@ -10,14 +10,6 @@
 !.yarn/releases
 !.yarn/versions
 
-# npm cache and integrity files
-.npm
-.npmrc.local
-.npmrc.development.local
-.npmrc.test.local
-.npmrc.production.local
-package-lock.json.backup
-
 # testing
 /coverage
 

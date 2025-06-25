@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { Pencil, Check, X } from "lucide-react";
 import useFetch from "@/hooks/use-fetch";
 import { toast } from "sonner";
-import { cn } from "@/lib/utils";
 
 import {
   Card,
@@ -127,20 +126,13 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
           <div className="space-y-2">
             <Progress
               value={percentUsed}
-              extraStyles={
-                percentUsed >= 90
-                  ? "rgb(239, 68, 68)"  // bg-red-500
-                  : percentUsed >= 75
-                    ? "rgb(234, 179, 8)"  // bg-yellow-500
-                    : "rgb(34, 197, 94)"  // bg-green-500
-              }
-              className={cn(
+              barClassName={
                 percentUsed >= 90
                   ? "bg-red-500"
                   : percentUsed >= 75
-                    ? "bg-yellow-500"
-                    : "bg-green-500"
-              )}
+                  ? "bg-yellow-500"
+                  : "bg-green-500"
+              }
             />
             <p className="text-xs text-muted-foreground text-right">
               {percentUsed.toFixed(1)}% used

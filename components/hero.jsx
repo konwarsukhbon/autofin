@@ -123,11 +123,11 @@ export function AutoFinHero() {
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
             <Link href="/dashboard">
               <span className="group px-8 py-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 text-white font-bold rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 text-center relative overflow-hidden">
-                <span className="relative z-10 flex items-center justify-center gap-2">
-                  Start Free Trial 
-                  <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <span className="relative z-10 flex items-center justify-center gap-2">
+                Start Free Trial 
+                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </span>
             </Link>
             <a href="#features" className="px-8 py-4 border-2 border-indigo-600 text-indigo-700 font-bold rounded-2xl hover:bg-indigo-50 hover:scale-105 transition-all duration-300 text-center group">

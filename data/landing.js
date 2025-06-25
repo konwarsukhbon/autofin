@@ -5,16 +5,21 @@ import {
     CreditCard,
     Globe,
     Zap,
+    BotIcon,
+    Github,
+    MessageSquare,
+    Shield,
+    Search,
   } from "lucide-react";
   
   // Stats Data
   export const statsData = [
     {
-      value: "50K+",
+      value: "5+",
       label: "Active Users",
     },
     {
-      value: "$2B+",
+      value: "10000+",
       label: "Transactions Tracked",
     },
     {
@@ -42,24 +47,24 @@ import {
         "Extract data automatically from receipts using advanced AI technology",
     },
     {
-      icon: <PieChart className="h-8 w-8 text-blue-600" />,
+      icon: <BotIcon className="h-8 w-8 text-blue-600" />,
       title: "Budget Planning",
-      description: "Create and manage budgets with intelligent recommendations",
+      description: "Create and manage budgets with intelligent recommendations from Bondhu",
     },
     {
       icon: <CreditCard className="h-8 w-8 text-blue-600" />,
       title: "Multi-Account Support",
-      description: "Manage multiple accounts and credit cards in one place",
+      description: "Manage multiple accounts and transactions in one place",
     },
     {
       icon: <Globe className="h-8 w-8 text-blue-600" />,
-      title: "Multi-Currency",
-      description: "Support for multiple currencies with real-time conversion",
+      title: "Splitwise Integration",
+      description: "Support for multiple transaction with real-time inputs",
     },
     {
       icon: <Zap className="h-8 w-8 text-blue-600" />,
       title: "Automated Insights",
-      description: "Get automated financial insights and recommendations",
+      description: "Get automated financial insights and recommendations from Bondhu",
     },
   ];
   
@@ -78,10 +83,10 @@ import {
         "Automatically categorize and track your transactions in real-time",
     },
     {
-      icon: <PieChart className="h-8 w-8 text-blue-600" />,
+      icon: <BotIcon className="h-8 w-8 text-blue-600" />,
       title: "3. Get Insights",
       description:
-        "Receive AI-powered insights and recommendations to optimize your finances",
+        "Receive AI-powered insights and recommendations from Bondhu to optimize your finances",
     },
   ];
   
@@ -107,6 +112,51 @@ import {
       image: "https://randomuser.me/api/portraits/women/74.jpg",
       quote:
         "I recommend autofin to all my clients. The multi-currency support and detailed analytics make it perfect for international investors.",
+    },
+  ];
+  
+  // Partner/Technology Logos Data
+  export const partnerLogosData = [
+    {
+      name: "GitHub",
+      icon: <Github className="h-8 w-8 text-gray-700 dark:text-gray-300" />,
+      link: "https://github.com",
+    },
+    {
+      name: "Gemini AI",
+      icon: <MessageSquare className="h-8 w-8 text-blue-600" />,
+      link: "https://gemini.google.com",
+    },
+    {
+      name: "Arcjet",
+      icon: <Shield className="h-8 w-8 text-indigo-600" />,
+      link: "https://arcjet.com",
+    },
+    {
+      name: "Google",
+      icon: <Search className="h-8 w-8 text-red-600" />,
+      link: "https://google.com",
+    },
+    // Duplicate the array to create a seamless loop
+    {
+      name: "GitHub",
+      icon: <Github className="h-8 w-8 text-gray-700 dark:text-gray-300" />,
+      link: "https://github.com",
+    },
+    {
+      name: "Gemini AI",
+      icon: <MessageSquare className="h-8 w-8 text-blue-600" />,
+      link: "https://gemini.google.com",
+    },
+    {
+      name: "Arcjet",
+      icon: <Shield className="h-8 w-8 text-indigo-600" />,
+      link: "https://arcjet.com",
+    },
+    {
+      name: "Google",
+      icon: <Search className="h-8 w-8 text-red-600" />,
+      link: "https://google.com",
     },
   ];
   

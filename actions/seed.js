@@ -1,12 +1,12 @@
 "use server";
 
 import { db } from "@/lib/prisma";
-import { subDays } from "date-fns";
+import { subDays, isAfter, startOfDay } from "date-fns";
 
-const ACCOUNT_ID = "5c7276aa-0a1d-407a-9614-4c3caca4b0df";
-const USER_ID = "9d1c1043-1fdd-4ff5-a03b-01919ba6ae1a";
+const ACCOUNT_ID = "41fd0c1b-119d-454a-a3d0-ec9cff4da52e";
+const USER_ID = "6b5477d0-b152-44d9-b918-31dfabe20c3f";
 
-// Categories with their typical amount ranges
+// Category definitions
 const CATEGORIES = {
   INCOME: [
     { name: "salary", range: [5000, 8000] },
@@ -28,12 +28,10 @@ const CATEGORIES = {
   ],
 };
 
-// Helper to generate random amount within a range
 function getRandomAmount(min, max) {
   return Number((Math.random() * (max - min) + min).toFixed(2));
 }
 
-// Helper to get random category with amount
 function getRandomCategory(type) {
   const categories = CATEGORIES[type];
   const category = categories[Math.floor(Math.random() * categories.length)];
@@ -43,67 +41,70 @@ function getRandomCategory(type) {
 
 export async function seedTransactions() {
   try {
-    // Generate 90 days of transactions
-    const transactions = [];
+    // Get latest transaction date
+    const lastTx = await db.transaction.findFirst({
+      where: { accountId: ACCOUNT_ID },
+      orderBy: { date: "desc" },
+    });
+
+    const lastDate = lastTx ? startOfDay(lastTx.date) : subDays(new Date(), 91);
+    const today = startOfDay(new Date());
     let totalBalance = 0;
+    const newTransactions = [];
 
-    for (let i = 90; i >= 0; i--) {
-      const date = subDays(new Date(), i);
-
-      // Generate 1-3 transactions per day
+    for (
+      let d = subDays(today, 0);
+      isAfter(d, lastDate);
+      d = subDays(d, 1)
+    ) {
       const transactionsPerDay = Math.floor(Math.random() * 3) + 1;
 
       for (let j = 0; j < transactionsPerDay; j++) {
-        // 40% chance of income, 60% chance of expense
         const type = Math.random() < 0.4 ? "INCOME" : "EXPENSE";
         const { category, amount } = getRandomCategory(type);
 
-        const transaction = {
+        const tx = {
           id: crypto.randomUUID(),
           type,
           amount,
-          description: `${
-            type === "INCOME" ? "Received" : "Paid for"
-          } ${category}`,
-          date,
+          description: `${type === "INCOME" ? "Received" : "Paid for"} ${category}`,
+          date: d,
           category,
           status: "COMPLETED",
           userId: USER_ID,
           accountId: ACCOUNT_ID,
-          createdAt: date,
-          updatedAt: date,
+          createdAt: d,
+          updatedAt: d,
         };
 
         totalBalance += type === "INCOME" ? amount : -amount;
-        transactions.push(transaction);
+        newTransactions.push(tx);
       }
     }
 
-    // Insert transactions in batches and update account balance
+    if (newTransactions.length === 0) {
+      return { success: true, message: "No new transactions to add." };
+    }
+
     await db.$transaction(async (tx) => {
-      // Clear existing transactions
-      await tx.transaction.deleteMany({
-        where: { accountId: ACCOUNT_ID },
-      });
+      await tx.transaction.createMany({ data: newTransactions });
 
-      // Insert new transactions
-      await tx.transaction.createMany({
-        data: transactions,
-      });
-
-      // Update account balance
       await tx.account.update({
         where: { id: ACCOUNT_ID },
-        data: { balance: totalBalance },
+        data: {
+          balance: {
+            increment: totalBalance,
+          },
+        },
       });
     });
 
     return {
       success: true,
-      message: `Created ${transactions.length} transactions`,
+      message: `Added ${newTransactions.length} new transactions.`,
     };
   } catch (error) {
-    console.error("Error seeding transactions:", error);
+    console.error("Error appending transactions:", error);
     return { success: false, error: error.message };
   }
 }

@@ -35,22 +35,22 @@ export default function EmailTemplate({
 
             <Text style={styles.text}>Hello {userName},</Text>
             <Text style={styles.text}>
-              Here’s your financial summary for {month}:
+              Here's your financial summary for {month}:
             </Text>
 
             {/* Main Stats */}
             <Section style={styles.statsContainer}>
               <div style={styles.stat}>
                 <Text style={styles.text}>Total Income</Text>
-                <Text style={styles.heading}>${totalIncome}</Text>
+                <Text style={styles.heading}>₹{totalIncome}</Text>
               </div>
               <div style={styles.stat}>
                 <Text style={styles.text}>Total Expenses</Text>
-                <Text style={styles.heading}>${totalExpenses}</Text>
+                <Text style={styles.heading}>₹{totalExpenses}</Text>
               </div>
               <div style={styles.stat}>
                 <Text style={styles.text}>Net</Text>
-                <Text style={styles.heading}>${net}</Text>
+                <Text style={styles.heading}>₹{net}</Text>
               </div>
             </Section>
 
@@ -61,7 +61,7 @@ export default function EmailTemplate({
                 {Object.entries(byCategory).map(([category, amount]) => (
                   <div key={category} style={styles.row}>
                     <Text style={styles.text}>{category}</Text>
-                    <Text style={styles.text}>${amount}</Text>
+                    <Text style={styles.text}>₹{amount}</Text>
                   </div>
                 ))}
               </Section>
@@ -101,21 +101,21 @@ export default function EmailTemplate({
             <Heading style={styles.title}>Budget Alert</Heading>
             <Text style={styles.text}>Hello {userName},</Text>
             <Text style={styles.text}>
-              You’ve used {typeof data?.percentageUsed === 'number' ? data.percentageUsed.toFixed(1) : 0}% of your
+              You've used {typeof data?.percentageUsed === 'number' ? data.percentageUsed.toFixed(1) : 0}% of your
               monthly budget.
             </Text>
             <Section style={styles.statsContainer}>
               <div style={styles.stat}>
                 <Text style={styles.text}>Budget Amount</Text>
-                <Text style={styles.heading}>${data?.budgetAmount ?? 0}</Text>
+                <Text style={styles.heading}>₹{data?.budgetAmount ?? 0}</Text>
               </div>
               <div style={styles.stat}>
                 <Text style={styles.text}>Spent So Far</Text>
-                <Text style={styles.heading}>${data?.totalExpenses ?? 0}</Text>
+                <Text style={styles.heading}>₹{data?.totalExpenses ?? 0}</Text>
               </div>
               <div style={styles.stat}>
                 <Text style={styles.text}>Remaining</Text>
-                <Text style={styles.heading}>${remaining ?? 0}</Text>
+                <Text style={styles.heading}>₹{remaining ?? 0}</Text>
               </div>
             </Section>
           </Container>

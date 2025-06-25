@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "../../../components/ui/button1.jsx";
+import { Card, CardContent } from "../../../components/ui/card.jsx";
 import { featuresData, howItWorksData } from "@/data/landing";
 import Image from "next/image";
 import Link from "next/link";
-import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
+import { InteractiveHoverButton } from "../../../components/magicui/interactive-hover-button.jsx";
 import { motion } from "framer-motion";
 
 // Animation variant

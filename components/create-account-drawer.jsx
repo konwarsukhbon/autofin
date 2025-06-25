@@ -7,7 +7,7 @@ import { Loader2 } from "lucide-react";
 import useFetch from "@/hooks/use-fetch";
 import { toast } from "sonner";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "./ui/button1.jsx";
 import {
   Drawer,
   DrawerContent,
@@ -15,17 +15,17 @@ import {
   DrawerTitle,
   DrawerTrigger,
   DrawerClose,
-} from "@/components/ui/drawer";
-import { Input } from "@/components/ui/input";
+} from "./ui/drawer.jsx";
+import { Input } from "./ui/input.jsx";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
-import { createAccount } from "@/actions/dashboard";
+} from "./ui/select.jsx";
+import { Switch } from "./ui/switch.jsx";
+import { createAccount } from "../actions/dashboard.js";
 import { accountSchema } from "@/app/lib/schema";
 
 export function CreateAccountDrawer({ children }) {
